@@ -4,35 +4,45 @@ function createAndInsertLink(spanElement) {
     newLink.target = '_blank';
     newLink.textContent = spanElement.textContent.trim();
 
-    spanElement.textContent = ""; 
-    spanElement.appendChild(newLink); 
+    spanElement.textContent = "";
+    spanElement.appendChild(newLink);
 }
 
-function updateListWithHtml(name, targetElement) {
-    fetch("https://so.sonainai.com/player_links?name="+name)
-      .then(response => {
+function updateListWithHtml(name, targetElement, ext) {
+    fetch("https://so.sonainai.com/player_links?name=" + name)
+        .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP request failed with status: ${response.status}`);
             }
             return response.text();
         })
-      .then(html => {
-            targetElement.innerHTML = html;
+        .then(html => {
+            targetElement.innerHTML = ext + html;
         })
-      .catch(error => {
+        .catch(error => {
             console.error('Failed to fetch and update list:', error);
         });
 }
 
-// 主逻辑
-const spanElement = document.querySelector('span[property="v:itemreviewed"]');
-if (spanElement) {
-    createAndInsertLink(spanElement);
-    const name = spanElement.textContent.split(" ")[0];
-    const ulElement = document.querySelector('ul.bs');
-    if (ulElement) {
-        updateListWithHtml(name,ulElement);
-    } else {
-        console.log('No matching element found.');
+function main() {
+    const spanElement = document.querySelector('span[property="v:itemreviewed"]');
+    if (spanElement) {
+        createAndInsertLink(spanElement);
+        const name = spanElement.textContent.split(" ")[0];
+        const ulElement = document.querySelector('ul.bs');
+        if (ulElement) {
+            updateListWithHtml(name, ulElement,"");
+            return;
+        }
+
+        const subjectDoulist = document.querySelector('#subject-doulist');
+        if (subjectDoulist) {
+            updateListWithHtml(name, subjectDoulist,"<h2>播放列表</h2>");
+            return;
+        }
+
     }
 }
+
+main();
+
