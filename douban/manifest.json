@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "豆瓣视频助手",
+    "name": "豆瓣视频播放器",
     "version": "1.0",
     "host_permissions": [
         "*://*/*"
