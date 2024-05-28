@@ -1,11 +1,25 @@
 function createAndInsertLink(spanElement) {
     const newLink = document.createElement('a');
-    newLink.href = 'https://so.sonainai.com/search?q=' + spanElement.textContent.split(" ")[0];
+    const name = extractChineseCharacters(spanElement.textContent);
+    newLink.href = 'https://so.sonainai.com/search?q=' + name;
     newLink.target = '_blank';
     newLink.textContent = spanElement.textContent.trim();
 
     spanElement.textContent = "";
     spanElement.appendChild(newLink);
+
+    return name;
+}
+
+function extractChineseCharacters(str) {
+    const regex = /[\u4e00-\u9fff]+/g;
+
+    const matches = str.match(regex);
+    if (matches) {
+        return matches.join(' ');
+    }
+
+    return str;
 }
 
 function updateListWithHtml(name, targetElement, prefix) {
@@ -27,8 +41,7 @@ function updateListWithHtml(name, targetElement, prefix) {
 function main() {
     const spanElement = document.querySelector('span[property="v:itemreviewed"]');
     if (spanElement) {
-        createAndInsertLink(spanElement);
-        const name = spanElement.textContent.split(" ")[0];
+        const name = createAndInsertLink(spanElement);
         const ulElement = document.querySelector('ul.bs');
         if (ulElement) {
             updateListWithHtml(name, ulElement,"");

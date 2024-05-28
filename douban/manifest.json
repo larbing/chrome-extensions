@@ -1,6 +1,7 @@
 {
     "manifest_version": 3,
     "name": "豆瓣视频播放器",
+    "description": "可以在豆瓣直接看视频的扩展程序",
     "version": "1.0",
     "host_permissions": [
         "*://*/*"
