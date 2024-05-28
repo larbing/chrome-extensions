@@ -1,3 +1,14 @@
+function extractChineseCharacters(str) {
+    const regex = /[\u4e00-\u9fff]+/g;
+
+    const matches = str.match(regex);
+    if (matches) {
+        return matches.join(' ');
+    }
+
+    return str;
+}
+
 function createAndInsertLink(spanElement) {
     const newLink = document.createElement('a');
     const name = extractChineseCharacters(spanElement.textContent);
@@ -9,17 +20,6 @@ function createAndInsertLink(spanElement) {
     spanElement.appendChild(newLink);
 
     return name;
-}
-
-function extractChineseCharacters(str) {
-    const regex = /[\u4e00-\u9fff]+/g;
-
-    const matches = str.match(regex);
-    if (matches) {
-        return matches.join(' ');
-    }
-
-    return str;
 }
 
 function updateListWithHtml(name, targetElement, prefix) {
@@ -44,13 +44,13 @@ function main() {
         const name = createAndInsertLink(spanElement);
         const ulElement = document.querySelector('ul.bs');
         if (ulElement) {
-            updateListWithHtml(name, ulElement,"");
+            updateListWithHtml(name, ulElement, "");
             return;
         }
 
         const subjectDoulist = document.querySelector('#subject-doulist');
         if (subjectDoulist) {
-            updateListWithHtml(name, subjectDoulist,"<h2>在哪儿看这部剧集  · · · · · ·</h2>");
+            updateListWithHtml(name, subjectDoulist, "<h2>在哪儿看这部剧集  · · · · · ·</h2>");
             return;
         }
 
