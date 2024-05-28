@@ -8,7 +8,7 @@ function createAndInsertLink(spanElement) {
     spanElement.appendChild(newLink);
 }
 
-function updateListWithHtml(name, targetElement, ext) {
+function updateListWithHtml(name, targetElement, prefix) {
     fetch("https://so.sonainai.com/player_links?name=" + name)
         .then(response => {
             if (!response.ok) {
@@ -17,7 +17,7 @@ function updateListWithHtml(name, targetElement, ext) {
             return response.text();
         })
         .then(html => {
-            targetElement.innerHTML = ext + html;
+            targetElement.innerHTML = prefix + html;
         })
         .catch(error => {
             console.error('Failed to fetch and update list:', error);
@@ -37,7 +37,7 @@ function main() {
 
         const subjectDoulist = document.querySelector('#subject-doulist');
         if (subjectDoulist) {
-            updateListWithHtml(name, subjectDoulist,"<h2>播放列表</h2>");
+            updateListWithHtml(name, subjectDoulist,"<h2>在哪儿看这部剧集  · · · · · ·</h2>");
             return;
         }
 
