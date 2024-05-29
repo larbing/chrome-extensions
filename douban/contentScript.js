@@ -1,17 +1,13 @@
-function extractChineseCharacters(str) {
-    const regex = /[\u4e00-\u9fff]+/g;
-
-    const matches = str.match(regex);
-    if (matches) {
-        return matches.join(' ');
-    }
-
+function string_replace(str) {
+    str = str.replace(/第一季/g,"")
+             .replace(/\s第/g, "第")
+             .split(/\s/)[0];
     return str;
 }
 
 function createAndInsertLink(spanElement) {
     const newLink = document.createElement('a');
-    const name = extractChineseCharacters(spanElement.textContent);
+    const name = string_replace(spanElement.textContent);
     newLink.href = 'https://so.sonainai.com/search?q=' + name;
     newLink.target = '_blank';
     newLink.textContent = spanElement.textContent.trim();
