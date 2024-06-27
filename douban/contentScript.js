@@ -8,7 +8,7 @@ function string_replace(str) {
 function createAndInsertLink(spanElement) {
     const newLink = document.createElement('a');
     const name = string_replace(spanElement.textContent);
-    newLink.href = 'https://so.sonainai.com/search?q=' + name;
+    newLink.href = 'https://so.igateway.top/search?q=' + name;
     newLink.target = '_blank';
     newLink.textContent = spanElement.textContent.trim();
 
