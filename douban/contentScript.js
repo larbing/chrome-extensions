@@ -19,7 +19,7 @@ function createAndInsertLink(spanElement) {
 }
 
 function updateListWithHtml(name, targetElement, prefix) {
-    fetch("https://so.sonainai.com/player_links?name=" + name)
+    fetch("https://so.igateway.top/player_links?name=" + name)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP request failed with status: ${response.status}`);
